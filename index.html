@@ -1,0 +1,784 @@
+<!doctype html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="theme-color" content="#090b0f">
+<meta name="mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+<title>Examen — Simulador</title>
+
+<style>
+:root{
+  --bg:#090b0f;
+  --bg2:#0d1015;
+  --card:#151922;
+  --card2:#1b2029;
+  --card3:#202633;
+  --text:#f7f8fa;
+  --muted:#8f98a8;
+  --muted2:#687281;
+  --line:#272d38;
+  --accent:#b8f34b;
+  --accent2:#8fd32c;
+  --accent-soft:rgba(184,243,75,.10);
+  --accent-border:rgba(184,243,75,.22);
+  --success:#54e39a;
+  --success-soft:rgba(84,227,154,.10);
+  --success-border:rgba(84,227,154,.25);
+  --danger:#ff6b6b;
+  --danger-soft:rgba(255,107,107,.08);
+  --danger-border:rgba(255,107,107,.24);
+  --warning:#f4c95d;
+  --warning-soft:rgba(244,201,93,.08);
+  --warning-border:rgba(244,201,93,.20);
+  --radius:20px;
+  --shadow:0 12px 32px rgba(0,0,0,.28);
+  --shadow-small:0 5px 16px rgba(0,0,0,.22);
+}
+*{box-sizing:border-box;-webkit-tap-highlight-color:transparent}
+html{min-height:100%;background:var(--bg);scroll-behavior:smooth}
+body{
+  min-height:100vh;margin:0;padding:0 0 calc(30px + env(safe-area-inset-bottom));
+  background:radial-gradient(circle at 50% -15%,rgba(184,243,75,.10),transparent 30%),
+             linear-gradient(180deg,#090b0f 0%,#0b0e13 45%,#090b0f 100%);
+  color:var(--text);font-family:Inter,system-ui,-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,sans-serif;
+  -webkit-font-smoothing:antialiased;
+}
+button,input{font:inherit}
+button{touch-action:manipulation}
+.hidden{display:none!important}
+header{
+  position:relative;overflow:hidden;padding:calc(27px + env(safe-area-inset-top)) 18px 24px;
+  background:radial-gradient(circle at 90% 10%,rgba(184,243,75,.13),transparent 28%),
+             linear-gradient(180deg,#11151c 0%,#090b0f 100%);
+  border-bottom:1px solid rgba(255,255,255,.04);
+}
+header::before{content:"";position:absolute;width:180px;height:180px;right:-90px;top:-100px;border-radius:50%;background:rgba(184,243,75,.06);filter:blur(20px)}
+header .wrap,main{width:100%;max-width:900px;margin:0 auto;position:relative}
+header h1{margin:0;font-size:28px;line-height:1.12;font-weight:900;letter-spacing:-.8px;text-align:center;color:var(--accent)}
+header p{margin:8px 0 0;color:var(--muted);font-size:13px;font-weight:500;text-align:center}
+main{padding:8px 12px 28px}
+.panel{
+  position:relative;overflow:hidden;margin:13px 0;padding:18px;
+  background:linear-gradient(140deg,rgba(255,255,255,.025),transparent 55%),var(--card);
+  border:1px solid var(--line);border-radius:var(--radius);box-shadow:var(--shadow);
+}
+.panel::after{content:"";position:absolute;pointer-events:none;inset:0;background:linear-gradient(135deg,rgba(255,255,255,.035),transparent 30%)}
+.panel>*{position:relative;z-index:1}
+.panel h2{margin:0 0 17px;font-size:20px;line-height:1.2;font-weight:900;letter-spacing:-.4px}
+.panel p{line-height:1.55}
+.actions{display:flex;flex-wrap:wrap;gap:9px;margin-top:15px}
+.primary,.secondary{
+  min-height:49px;padding:12px 19px;border-radius:13px;font-weight:900;cursor:pointer;transition:transform .12s ease,background .15s ease,border-color .15s ease;
+}
+.primary{color:#0b0d0f;background:var(--accent);border:0;box-shadow:0 8px 20px rgba(184,243,75,.13),inset 0 1px 0 rgba(255,255,255,.4)}
+.primary:hover{background:#c7fb61}
+.primary:active,.secondary:active{transform:scale(.98)}
+.secondary{color:#e9ecf1;background:var(--card2);border:1px solid var(--line);font-size:13px}
+.secondary:hover{background:var(--card3);border-color:#333b49}
+.primary:disabled,.secondary:disabled{opacity:.45;cursor:not-allowed;transform:none}
+.field label{display:block;margin:0 0 7px 2px;color:var(--muted);font-size:10px;font-weight:850;text-transform:uppercase;letter-spacing:.7px}
+.field input{
+  width:100%;min-height:52px;padding:12px 14px;color:var(--text);background:var(--bg2);
+  border:1px solid var(--line);border-radius:13px;outline:none;font-size:16px;
+}
+.field input:focus{border-color:rgba(184,243,75,.55);box-shadow:0 0 0 3px rgba(184,243,75,.07)}
+.notice{margin-top:13px;padding:12px 13px;color:#d7c987;background:linear-gradient(135deg,rgba(244,201,93,.09),transparent),var(--warning-soft);border:1px solid var(--warning-border);border-radius:13px;font-size:12px;line-height:1.55}
+.notice b{color:var(--warning)}
+.exam-list{display:grid;gap:10px}
+.exam-card{
+  position:relative;overflow:hidden;padding:16px;background:linear-gradient(145deg,rgba(255,255,255,.025),transparent 60%),var(--card2);
+  border:1px solid var(--line);border-radius:17px;box-shadow:var(--shadow-small);
+}
+.exam-card::before{content:"";position:absolute;left:0;top:0;bottom:0;width:3px;background:var(--accent);opacity:.8}
+.exam-top{display:flex;justify-content:space-between;align-items:flex-start;gap:12px}
+.exam-name{font-size:17px;font-weight:900;line-height:1.3}
+.exam-meta{margin-top:5px;color:var(--muted);font-size:12px}
+.exam-badge{flex:none;padding:6px 9px;border-radius:999px;color:var(--accent);background:var(--accent-soft);border:1px solid var(--accent-border);font-size:10px;font-weight:850}
+.exam-select{
+  margin-top:13px;width:100%;min-height:44px;border:1px solid var(--line);border-radius:12px;
+  background:var(--bg2);color:var(--text);font-weight:800;cursor:pointer;
+}
+.empty{padding:25px 14px;text-align:center;color:var(--muted);font-size:13px;border:1px dashed var(--line);border-radius:15px;background:var(--bg2)}
+.loading{padding:30px;text-align:center;color:var(--muted)}
+.spinner{width:27px;height:27px;border:3px solid var(--line);border-top-color:var(--accent);border-radius:50%;animation:spin .8s linear infinite;margin:0 auto 12px}
+@keyframes spin{to{transform:rotate(360deg)}}
+.error-box{padding:14px;color:#ffd0d0;background:var(--danger-soft);border:1px solid var(--danger-border);border-radius:14px;font-size:13px;line-height:1.55}
+.progress-wrap{margin-bottom:18px}
+.progress-head{display:flex;justify-content:space-between;gap:10px;margin-bottom:8px;color:var(--muted);font-size:11px;font-weight:850}
+.progress{height:8px;border-radius:999px;background:var(--bg2);overflow:hidden;border:1px solid var(--line)}
+.progress-bar{height:100%;width:0;background:var(--accent);border-radius:999px;transition:width .25s ease}
+.question-number{color:var(--accent);font-size:11px;font-weight:900;text-transform:uppercase;letter-spacing:.8px;margin-bottom:9px}
+.question-text{font-size:21px;line-height:1.4;font-weight:850;letter-spacing:-.25px;white-space:pre-wrap}
+.answers{display:grid;gap:10px;margin-top:20px}
+.answer{
+  width:100%;min-height:58px;padding:13px 14px;display:flex;align-items:flex-start;gap:12px;text-align:left;
+  color:#eef1f5;background:var(--card2);border:1px solid var(--line);border-radius:14px;cursor:pointer;
+  transition:transform .12s ease,border-color .15s ease,background .15s ease;
+}
+.answer:hover{background:var(--card3);border-color:#394251}
+.answer:active{transform:scale(.99)}
+.answer-letter{
+  flex:none;width:30px;height:30px;display:grid;place-items:center;border-radius:9px;
+  color:var(--muted);background:var(--bg2);border:1px solid var(--line);font-size:12px;font-weight:900;
+}
+.answer-text{padding-top:3px;font-size:14px;line-height:1.45;font-weight:650}
+.answer.correct{background:var(--success-soft);border-color:var(--success-border)}
+.answer.correct .answer-letter{color:#07150e;background:var(--success);border-color:var(--success)}
+.answer.wrong{background:var(--danger-soft);border-color:var(--danger-border)}
+.answer.wrong .answer-letter{color:#210707;background:var(--danger);border-color:var(--danger)}
+.answer.dimmed{opacity:.48}
+.feedback{margin-top:15px;padding:15px;border-radius:14px;font-size:13px;line-height:1.55}
+.feedback.correct{color:#caffdf;background:var(--success-soft);border:1px solid var(--success-border)}
+.feedback.wrong{color:#ffd1d1;background:var(--danger-soft);border:1px solid var(--danger-border)}
+.feedback-title{font-size:15px;font-weight:900;margin-bottom:5px}
+.feedback-answer{margin-top:7px;color:var(--text);font-weight:850}
+.question-actions{margin-top:13px}
+.question-actions button{width:100%}
+.result{text-align:center}
+.result-icon{font-size:42px;margin-bottom:8px}
+.result-title{font-size:25px;font-weight:950}
+.score{font-size:58px;line-height:1;margin:18px 0 7px;color:var(--accent);font-weight:950;letter-spacing:-2px}
+.percent{color:var(--muted);font-size:14px;font-weight:800}
+.result-stats{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-top:22px}
+.stat{padding:14px;border-radius:14px;background:var(--bg2);border:1px solid var(--line)}
+.stat strong{display:block;font-size:22px;margin-bottom:3px}
+.stat span{color:var(--muted);font-size:11px;font-weight:750}
+.stat.ok strong{color:var(--success)}
+.stat.bad strong{color:var(--danger)}
+.result-actions{display:flex;flex-direction:column;gap:8px;margin-top:18px}
+.result-actions button{width:100%}
+.pill-row{display:flex;flex-wrap:wrap;gap:7px;margin-bottom:15px}
+.pill{display:inline-flex;align-items:center;min-height:28px;padding:6px 10px;color:var(--accent);background:var(--accent-soft);border:1px solid var(--accent-border);border-radius:999px;font-size:10px;font-weight:850}
+.exam-title-small{color:var(--muted);font-size:12px;font-weight:750;margin-top:-10px;margin-bottom:18px}
+@media(max-width:760px){
+  header{padding:calc(24px + env(safe-area-inset-top)) 16px 20px}
+  header h1{font-size:24px}
+  main{padding:4px 9px 30px}
+  .panel{padding:16px;margin:11px 0;border-radius:18px}
+  .panel h2{font-size:19px}
+  .actions{flex-direction:column;gap:8px}
+  .actions .primary,.actions .secondary{width:100%}
+  .question-text{font-size:19px}
+  .answer{min-height:56px}
+}
+@media(max-width:420px){
+  header{padding:calc(21px + env(safe-area-inset-top)) 14px 18px}
+  header h1{font-size:22px}
+  main{padding-left:7px;padding-right:7px}
+  .panel{padding:14px}
+  .question-text{font-size:18px}
+}
+</style>
+</head>
+
+<body>
+<header>
+  <div class="wrap">
+    <h1>Examen</h1>
+    <p>Simulador de exámenes</p>
+  </div>
+</header>
+
+<main>
+
+<section id="home">
+  <div class="panel">
+    <h2>Selecciona un examen</h2>
+    <p style="margin-top:-7px;color:var(--muted);font-size:13px">
+      Elige el examen que quieres realizar y cuántas preguntas quieres responder.
+    </p>
+    <div id="examList" class="exam-list">
+      <div class="loading"><div class="spinner"></div>Cargando exámenes...</div>
+    </div>
+  </div>
+</section>
+
+<section id="setup" class="hidden">
+  <div class="panel">
+    <div class="pill-row">
+      <span id="setupExamPill" class="pill"></span>
+      <span id="setupCountPill" class="pill"></span>
+    </div>
+    <h2>Preparar examen</h2>
+    <div id="setupDescription" class="exam-title-small"></div>
+
+    <div class="field">
+      <label for="questionCount">Número de preguntas</label>
+      <input id="questionCount" type="number" min="1" step="1" inputmode="numeric" placeholder="Ej. 50">
+    </div>
+
+    <div id="setupNotice" class="notice"></div>
+
+    <div class="actions">
+      <button class="primary" onclick="startExam()">Comenzar examen</button>
+      <button class="secondary" onclick="backToHome()">← Volver a exámenes</button>
+    </div>
+  </div>
+</section>
+
+<section id="quiz" class="hidden">
+  <div class="panel">
+    <div class="progress-wrap">
+      <div class="progress-head">
+        <span id="progressText">Pregunta 1 / 50</span>
+        <span id="scoreLive">0 correctas</span>
+      </div>
+      <div class="progress"><div id="progressBar" class="progress-bar"></div></div>
+    </div>
+
+    <div id="questionNumber" class="question-number"></div>
+    <div id="questionText" class="question-text"></div>
+    <div id="answers" class="answers"></div>
+    <div id="feedback" class="feedback hidden"></div>
+
+    <div class="question-actions">
+      <button id="nextButton" class="primary hidden" onclick="nextQuestion()">Siguiente →</button>
+    </div>
+  </div>
+</section>
+
+<section id="result" class="hidden">
+  <div class="panel result">
+    <div id="resultIcon" class="result-icon">🏆</div>
+    <div class="result-title">Examen finalizado</div>
+    <div id="resultScore" class="score">0 / 0</div>
+    <div id="resultPercent" class="percent">0 %</div>
+
+    <div class="result-stats">
+      <div class="stat ok"><strong id="correctStat">0</strong><span>Correctas</span></div>
+      <div class="stat bad"><strong id="wrongStat">0</strong><span>Incorrectas</span></div>
+    </div>
+
+    <div class="result-actions">
+      <button class="primary" onclick="repeatExam()">↻ Repetir examen</button>
+      <button class="secondary" onclick="backToHome()">← Volver a exámenes</button>
+    </div>
+  </div>
+</section>
+
+</main>
+
+<script>
+/*
+  ============================================================
+  CONFIGURACIÓN
+  ============================================================
+
+  Los JSON deben estar en:
+      /exams/
+
+  Ejemplo:
+      /exams/SPLK-3001.json
+      /exams/SPLK-1002.json
+
+  La aplicación detecta automáticamente los archivos JSON del
+  repositorio mediante la API pública de GitHub.
+
+  Si GitHub Pages está publicado como:
+      https://usuario.github.io/mi-repo/
+
+  no hace falta modificar nada.
+*/
+
+const EXAMS_FOLDER = "exams";
+
+let exams = [];
+let selectedExam = null;
+let selectedQuestions = [];
+let currentQuestion = 0;
+let correctAnswers = 0;
+let answered = false;
+let lastQuestionCount = 0;
+
+/* ============================================================
+   UTILIDADES
+   ============================================================ */
+
+function escapeHtml(value){
+  return String(value ?? "")
+    .replaceAll("&","&amp;")
+    .replaceAll('"',"&quot;")
+    .replaceAll("<","&lt;")
+    .replaceAll(">","&gt;");
+}
+
+function shuffle(array){
+  const a = [...array];
+  for(let i=a.length-1;i>0;i--){
+    const j=Math.floor(Math.random()*(i+1));
+    [a[i],a[j]]=[a[j],a[i]];
+  }
+  return a;
+}
+
+function showSection(id){
+  ["home","setup","quiz","result"].forEach(section=>{
+    document.getElementById(section).classList.toggle("hidden",section!==id);
+  });
+  window.scrollTo({top:0,behavior:"smooth"});
+}
+
+/* ============================================================
+   GITHUB
+   ============================================================ */
+
+function getGithubRepository(){
+  const host = window.location.hostname;
+  const pathParts = window.location.pathname.split("/").filter(Boolean);
+
+  /*
+    GitHub Pages de usuario:
+      usuario.github.io
+    GitHub Pages de proyecto:
+      usuario.github.io/repositorio/
+  */
+  if(host.endsWith(".github.io")){
+    const owner = host.split(".")[0];
+    const repo = pathParts[0] || `${owner}.github.io`;
+    return {owner,repo};
+  }
+
+  return null;
+}
+
+async function loadExams(){
+  const list = document.getElementById("examList");
+  const repo = getGithubRepository();
+
+  if(!repo){
+    list.innerHTML = `
+      <div class="error-box">
+        No se ha podido detectar automáticamente el repositorio de GitHub.
+        <br><br>
+        Abre esta aplicación desde GitHub Pages para que pueda localizar
+        automáticamente la carpeta <b>/exams/</b>.
+      </div>`;
+    return;
+  }
+
+  const apiUrl =
+    `https://api.github.com/repos/${encodeURIComponent(repo.owner)}/${encodeURIComponent(repo.repo)}/contents/${EXAMS_FOLDER}`;
+
+  try{
+    const response = await fetch(apiUrl,{
+      headers:{Accept:"application/vnd.github+json"}
+    });
+
+    if(!response.ok){
+      throw new Error(`GitHub respondió con ${response.status}`);
+    }
+
+    const files = await response.json();
+
+    exams = files
+      .filter(file =>
+        file.type === "file" &&
+        file.name.toLowerCase().endsWith(".json")
+      )
+      .sort((a,b)=>a.name.localeCompare(b.name,undefined,{numeric:true,sensitivity:"base"}));
+
+    if(!exams.length){
+      list.innerHTML = `
+        <div class="empty">
+          No hay exámenes cargados en <b>/exams/</b>.
+        </div>`;
+      return;
+    }
+
+    renderExamList();
+
+  }catch(error){
+    console.error(error);
+    list.innerHTML = `
+      <div class="error-box">
+        <b>No se han podido cargar los exámenes.</b><br><br>
+        Comprueba que la carpeta <b>/exams/</b> exista en el repositorio
+        y que los archivos JSON sean públicos.
+        <br><br>
+        <small>${escapeHtml(error.message)}</small>
+      </div>`;
+  }
+}
+
+async function getExamQuestions(examFile){
+  const url = examFile.download_url || examFile.html_url;
+
+  const response = await fetch(url);
+  if(!response.ok){
+    throw new Error(`No se pudo descargar ${examFile.name}`);
+  }
+
+  const data = await response.json();
+
+  if(!data || !Array.isArray(data.questions)){
+    throw new Error(`${examFile.name} no contiene un array "questions".`);
+  }
+
+  return data.questions;
+}
+
+/* ============================================================
+   LISTADO DE EXÁMENES
+   ============================================================ */
+
+function renderExamList(){
+  const list = document.getElementById("examList");
+
+  list.innerHTML = exams.map((exam,index)=>`
+    <div class="exam-card">
+      <div class="exam-top">
+        <div>
+          <div class="exam-name">${escapeHtml(exam.name.replace(/\.json$/i,""))}</div>
+          <div class="exam-meta">Archivo JSON del repositorio</div>
+        </div>
+        <div class="exam-badge">EXAMEN</div>
+      </div>
+
+      <button class="primary exam-select" onclick="selectExam(${index})">
+        Seleccionar examen →
+      </button>
+    </div>
+  `).join("");
+}
+
+async function selectExam(index){
+  const exam = exams[index];
+  selectedExam = exam;
+
+  showSection("setup");
+
+  document.getElementById("setupExamPill").textContent =
+    exam.name.replace(/\.json$/i,"");
+
+  document.getElementById("setupCountPill").textContent =
+    "Cargando preguntas...";
+
+  document.getElementById("setupDescription").textContent =
+    "Cargando el banco de preguntas...";
+
+  document.getElementById("questionCount").value = "";
+
+  try{
+    const questions = await getExamQuestions(exam);
+
+    selectedExam.questions = questions;
+
+    const count = questions.length;
+
+    document.getElementById("setupCountPill").textContent =
+      `${count} preguntas`;
+
+    document.getElementById("setupDescription").textContent =
+      `${count} preguntas disponibles en este examen.`;
+
+    document.getElementById("setupNotice").innerHTML =
+      `Puedes elegir entre <b>1 y ${count} preguntas</b>. ` +
+      `Las preguntas y las respuestas se seleccionarán y barajarán al azar.`;
+
+    const input = document.getElementById("questionCount");
+    input.max = count;
+    input.placeholder = Math.min(50,count);
+
+  }catch(error){
+    document.getElementById("setupCountPill").textContent = "Error";
+    document.getElementById("setupDescription").innerHTML =
+      `<span style="color:var(--danger)">${escapeHtml(error.message)}</span>`;
+    document.getElementById("setupNotice").innerHTML =
+      "No se ha podido cargar este examen.";
+  }
+}
+
+/* ============================================================
+   PREPARAR EXAMEN
+   ============================================================ */
+
+function startExam(){
+  if(!selectedExam || !Array.isArray(selectedExam.questions)){
+    alert("Primero selecciona un examen.");
+    return;
+  }
+
+  const input = document.getElementById("questionCount");
+  const count = Number(input.value);
+
+  if(!Number.isInteger(count) || count<1){
+    alert("Introduce un número válido de preguntas.");
+    input.focus();
+    return;
+  }
+
+  if(count>selectedExam.questions.length){
+    alert(`Este examen solo tiene ${selectedExam.questions.length} preguntas.`);
+    input.focus();
+    return;
+  }
+
+  lastQuestionCount = count;
+
+  /*
+    Seleccionamos preguntas sin repetir.
+    Después normalizamos y barajamos sus respuestas.
+  */
+  selectedQuestions = shuffle(selectedExam.questions)
+    .slice(0,count)
+    .map(normalizeQuestion);
+
+  currentQuestion = 0;
+  correctAnswers = 0;
+  answered = false;
+
+  showSection("quiz");
+  renderQuestion();
+}
+
+function normalizeQuestion(question){
+  if(!question || typeof question!=="object"){
+    return {
+      question:"",
+      answers:[],
+      correctIndex:-1
+    };
+  }
+
+  const answers = Array.isArray(question.answers)
+    ? question.answers.map(a=>String(a))
+    : [];
+
+  /*
+    IMPORTANTÍSIMO:
+    correct_index es la referencia principal.
+
+    correct_answer NO se utiliza para decidir cuál es la respuesta
+    correcta. Se conserva únicamente como dato adicional.
+  */
+  let originalCorrectIndex = Number.isInteger(question.correct_index)
+    ? question.correct_index
+    : parseInt(question.correct_index,10);
+
+  if(!Number.isInteger(originalCorrectIndex) ||
+     originalCorrectIndex<0 ||
+     originalCorrectIndex>=answers.length){
+    originalCorrectIndex = -1;
+  }
+
+  /*
+    Barajamos las respuestas conservando la referencia al índice
+    correcto original.
+  */
+  const answerObjects = answers.map((text,index)=>({
+    text,
+    originalIndex:index
+  }));
+
+  const shuffledAnswers = shuffle(answerObjects);
+
+  const newCorrectIndex =
+    shuffledAnswers.findIndex(a=>a.originalIndex===originalCorrectIndex);
+
+  return {
+    question:String(question.question ?? ""),
+    answers:shuffledAnswers.map(a=>a.text),
+    correctIndex:newCorrectIndex,
+
+    /*
+      Campo adicional, por si algún JSON lo incluye.
+      No se utiliza como referencia principal.
+    */
+    correctAnswer:
+      question.correct_answer !== undefined
+        ? String(question.correct_answer)
+        : null
+  };
+}
+
+/* ============================================================
+   EXAMEN
+   ============================================================ */
+
+function renderQuestion(){
+  const q = selectedQuestions[currentQuestion];
+
+  answered = false;
+
+  const total = selectedQuestions.length;
+  const number = currentQuestion+1;
+
+  document.getElementById("progressText").textContent =
+    `Pregunta ${number} / ${total}`;
+
+  document.getElementById("scoreLive").textContent =
+    `${correctAnswers} correcta${correctAnswers===1?"":"s"}`;
+
+  document.getElementById("progressBar").style.width =
+    `${(currentQuestion/total)*100}%`;
+
+  document.getElementById("questionNumber").textContent =
+    `Pregunta ${number}`;
+
+  document.getElementById("questionText").textContent =
+    q.question;
+
+  const letters = "ABCDEFGHIJKLMNOPQRSTUVWXYZ";
+
+  document.getElementById("answers").innerHTML =
+    q.answers.map((answer,index)=>`
+      <button class="answer" onclick="answerQuestion(${index})">
+        <span class="answer-letter">${letters[index] || "?"}</span>
+        <span class="answer-text">${escapeHtml(answer)}</span>
+      </button>
+    `).join("");
+
+  const feedback = document.getElementById("feedback");
+  feedback.className = "feedback hidden";
+  feedback.innerHTML = "";
+
+  const next = document.getElementById("nextButton");
+  next.classList.add("hidden");
+  next.textContent =
+    currentQuestion===total-1
+      ? "Ver resultado →"
+      : "Siguiente →";
+}
+
+function answerQuestion(selectedIndex){
+  if(answered)return;
+
+  answered = true;
+
+  const q = selectedQuestions[currentQuestion];
+  const buttons = [...document.querySelectorAll(".answer")];
+
+  const isCorrect =
+    selectedIndex === q.correctIndex;
+
+  if(isCorrect){
+    correctAnswers++;
+  }
+
+  buttons.forEach((button,index)=>{
+    button.disabled = true;
+
+    if(index===q.correctIndex){
+      button.classList.add("correct");
+    }else if(index===selectedIndex && !isCorrect){
+      button.classList.add("wrong");
+    }else{
+      button.classList.add("dimmed");
+    }
+  });
+
+  const feedback = document.getElementById("feedback");
+
+  if(isCorrect){
+    feedback.className = "feedback correct";
+    feedback.innerHTML = `
+      <div class="feedback-title">✓ ¡Correcto!</div>
+      <div>Has seleccionado la respuesta correcta.</div>
+    `;
+  }else{
+    const correctText =
+      q.correctIndex>=0 && q.correctIndex<q.answers.length
+        ? q.answers[q.correctIndex]
+        : "No disponible";
+
+    feedback.className = "feedback wrong";
+    feedback.innerHTML = `
+      <div class="feedback-title">✕ Incorrecto</div>
+      <div>La respuesta correcta es:</div>
+      <div class="feedback-answer">${escapeHtml(correctText)}</div>
+    `;
+  }
+
+  document.getElementById("scoreLive").textContent =
+    `${correctAnswers} correcta${correctAnswers===1?"":"s"}`;
+
+  document.getElementById("progressBar").style.width =
+    `${((currentQuestion+1)/selectedQuestions.length)*100}%`;
+
+  document.getElementById("nextButton").classList.remove("hidden");
+
+  requestAnimationFrame(()=>{
+    feedback.scrollIntoView({behavior:"smooth",block:"nearest"});
+  });
+}
+
+function nextQuestion(){
+  if(!answered)return;
+
+  if(currentQuestion>=selectedQuestions.length-1){
+    finishExam();
+    return;
+  }
+
+  currentQuestion++;
+  renderQuestion();
+  window.scrollTo({top:0,behavior:"smooth"});
+}
+
+/* ============================================================
+   RESULTADO
+   ============================================================ */
+
+function finishExam(){
+  const total = selectedQuestions.length;
+  const wrong = total-correctAnswers;
+  const percent = Math.round((correctAnswers/total)*100);
+
+  document.getElementById("resultScore").textContent =
+    `${correctAnswers} / ${total}`;
+
+  document.getElementById("resultPercent").textContent =
+    `${percent} %`;
+
+  document.getElementById("correctStat").textContent =
+    correctAnswers;
+
+  document.getElementById("wrongStat").textContent =
+    wrong;
+
+  document.getElementById("resultIcon").textContent =
+    percent>=90 ? "🏆" :
+    percent>=70 ? "🎯" :
+    percent>=50 ? "💪" : "📚";
+
+  showSection("result");
+}
+
+function repeatExam(){
+  if(!selectedExam || !selectedExam.questions)return;
+
+  const count = lastQuestionCount;
+
+  selectedQuestions = shuffle(selectedExam.questions)
+    .slice(0,count)
+    .map(normalizeQuestion);
+
+  currentQuestion = 0;
+  correctAnswers = 0;
+  answered = false;
+
+  showSection("quiz");
+  renderQuestion();
+}
+
+function backToHome(){
+  selectedExam = null;
+  selectedQuestions = [];
+  currentQuestion = 0;
+  correctAnswers = 0;
+  answered = false;
+
+  showSection("home");
+}
+
+/* ============================================================
+   INICIO
+   ============================================================ */
+
+loadExams();
+</script>
+</body>
+</html>
