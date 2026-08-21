@@ -87,6 +87,13 @@ main{padding:8px 12px 28px}
 .field input:focus{border-color:rgba(184,243,75,.55);box-shadow:0 0 0 3px rgba(184,243,75,.07)}
 .notice{margin-top:13px;padding:12px 13px;color:#d7c987;background:linear-gradient(135deg,rgba(244,201,93,.09),transparent),var(--warning-soft);border:1px solid var(--warning-border);border-radius:13px;font-size:12px;line-height:1.55}
 .notice b{color:var(--warning)}
+.search-box{margin:0 0 13px}
+.search-box label{display:block;margin:0 0 7px 2px;color:var(--muted);font-size:10px;font-weight:850;text-transform:uppercase;letter-spacing:.7px}
+.search-box input{
+  width:100%;min-height:48px;padding:11px 14px;color:var(--text);background:var(--bg2);
+  border:1px solid var(--line);border-radius:13px;outline:none;font-size:14px;
+}
+.search-box input:focus{border-color:rgba(184,243,75,.55);box-shadow:0 0 0 3px rgba(184,243,75,.07)}
 .exam-list{display:grid;gap:10px}
 .exam-card{
   position:relative;overflow:hidden;padding:16px;background:linear-gradient(145deg,rgba(255,255,255,.025),transparent 60%),var(--card2);
@@ -97,6 +104,7 @@ main{padding:8px 12px 28px}
 .exam-name{font-size:17px;font-weight:900;line-height:1.3}
 .exam-meta{margin-top:5px;color:var(--muted);font-size:12px}
 .exam-badge{flex:none;padding:6px 9px;border-radius:999px;color:var(--accent);background:var(--accent-soft);border:1px solid var(--accent-border);font-size:10px;font-weight:850}
+.exam-card-count{margin-top:10px;color:var(--muted2);font-size:11px;font-weight:750}
 .exam-select{
   margin-top:13px;width:100%;min-height:44px;border:1px solid var(--line);border-radius:12px;
   background:var(--bg2);color:var(--text);font-weight:800;cursor:pointer;
@@ -190,6 +198,11 @@ main{padding:8px 12px 28px}
     <p style="margin-top:-7px;color:var(--muted);font-size:13px">
       Elige el examen que quieres realizar y cuántas preguntas quieres responder.
     </p>
+    <div class="search-box">
+      <label for="examSearch">Buscar examen</label>
+      <input id="examSearch" type="search" placeholder="Código, nombre o fabricante..." autocomplete="off">
+    </div>
+
     <div id="examList" class="exam-list">
       <div class="loading"><div class="spinner"></div>Cargando exámenes...</div>
     </div>
@@ -378,7 +391,8 @@ async function loadExams(){
         file.type === "file" &&
         file.name.toLowerCase().endsWith(".json")
       )
-      .sort((a,b)=>a.name.localeCompare(b.name,undefined,{numeric:true,sensitivity:"base"}));
+      .map(file => parseExamFilename(file))
+      .sort((a,b)=>a.code.localeCompare(b.code,undefined,{numeric:true,sensitivity:"base"}));
 
     if(!exams.length){
       list.innerHTML = `
@@ -403,6 +417,42 @@ async function loadExams(){
   }
 }
 
+function parseExamFilename(file){
+  const filename = file.name.replace(/\.json$/i,"").trim();
+
+  /*
+    Formato esperado:
+      CÓDIGO (NOMBRE DEL EXAMEN) - FABRICANTE
+
+    Ejemplo:
+      SPLK-3001 (Enterprise Security Certified Admin) - Splunk
+  */
+  const match = filename.match(/^(.+?)\s*\((.*?)\)\s*-\s*(.+?)\s*$/);
+
+  if(match){
+    return {
+      ...file,
+      code:match[1].trim(),
+      title:match[2].trim(),
+      manufacturer:match[3].trim(),
+      questionCount:null
+    };
+  }
+
+  /*
+    Si un archivo no sigue el formato, no rompe la aplicación.
+    Se muestra el nombre completo como código y se dejan vacíos
+    nombre/fabricante.
+  */
+  return {
+    ...file,
+    code:filename,
+    title:"",
+    manufacturer:"",
+    questionCount:null
+  };
+}
+
 async function getExamQuestions(examFile){
   const url = examFile.download_url || examFile.html_url;
 
@@ -424,24 +474,46 @@ async function getExamQuestions(examFile){
    LISTADO DE EXÁMENES
    ============================================================ */
 
-function renderExamList(){
+function renderExamList(filter=""){
   const list = document.getElementById("examList");
+  const query = filter.trim().toLocaleLowerCase();
 
-  list.innerHTML = exams.map((exam,index)=>`
-    <div class="exam-card">
-      <div class="exam-top">
-        <div>
-          <div class="exam-name">${escapeHtml(exam.name.replace(/\.json$/i,""))}</div>
-          <div class="exam-meta">Archivo JSON del repositorio</div>
+  const filtered = exams.filter(exam => {
+    const text = `${exam.code} ${exam.title} ${exam.manufacturer} ${exam.name}`.toLocaleLowerCase();
+    return !query || text.includes(query);
+  });
+
+  if(!filtered.length){
+    list.innerHTML = `
+      <div class="empty">
+        No se ha encontrado ningún examen que coincida con
+        <b>${escapeHtml(filter)}</b>.
+      </div>`;
+    return;
+  }
+
+  list.innerHTML = filtered.map(exam => {
+    const index = exams.indexOf(exam);
+    return `
+      <div class="exam-card">
+        <div class="exam-top">
+          <div style="min-width:0">
+            <div class="exam-name">${escapeHtml(exam.code)}</div>
+            <div class="exam-meta">${escapeHtml(exam.title)}</div>
+          </div>
+          <div class="exam-badge">${escapeHtml(exam.manufacturer)}</div>
         </div>
-        <div class="exam-badge">EXAMEN</div>
-      </div>
 
-      <button class="primary exam-select" onclick="selectExam(${index})">
-        Seleccionar examen →
-      </button>
-    </div>
-  `).join("");
+        <div class="exam-card-count">
+          ${exam.questionCount !== null ? `${exam.questionCount} preguntas` : "Preguntas"}
+        </div>
+
+        <button class="primary exam-select" onclick="selectExam(${index})">
+          Seleccionar examen →
+        </button>
+      </div>
+    `;
+  }).join("");
 }
 
 async function selectExam(index){
@@ -451,7 +523,7 @@ async function selectExam(index){
   showSection("setup");
 
   document.getElementById("setupExamPill").textContent =
-    exam.name.replace(/\.json$/i,"");
+    exam.code;
 
   document.getElementById("setupCountPill").textContent =
     "Cargando preguntas...";
@@ -467,6 +539,7 @@ async function selectExam(index){
     selectedExam.questions = questions;
 
     const count = questions.length;
+    selectedExam.questionCount = count;
 
     document.getElementById("setupCountPill").textContent =
       `${count} preguntas`;
@@ -765,6 +838,10 @@ function repeatExam(){
 }
 
 function backToHome(){
+  const search = document.getElementById("examSearch");
+  if(search) search.value = "";
+  renderExamList("");
+
   selectedExam = null;
   selectedQuestions = [];
   currentQuestion = 0;
@@ -777,6 +854,10 @@ function backToHome(){
 /* ============================================================
    INICIO
    ============================================================ */
+
+document.getElementById("examSearch").addEventListener("input", (event)=>{
+  renderExamList(event.target.value);
+});
 
 loadExams();
 </script>
