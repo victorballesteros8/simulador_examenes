@@ -214,8 +214,7 @@ main{padding:8px 12px 28px}
 <body>
 <header>
   <div class="wrap">
-    <h1>Examen</h1>
-    <p>Simulador de exámenes</p>
+    <h1>Simulador de exámenes</h1>
     <button id="installButton" class="install-button hidden" type="button">＋ Instalar app</button>
   </div>
 </header>
@@ -226,10 +225,10 @@ main{padding:8px 12px 28px}
   <div class="panel">
     <h2>Selecciona un examen</h2>
     <p style="margin-top:-7px;color:var(--muted);font-size:13px">
-      Elige el examen que quieres realizar y cuántas preguntas quieres responder.
+      Elige el examen que quieres realizar
     </p>
     <div class="search-box">
-      <label for="examSearch">Buscar examen</label>
+      <label for="examSearch">Buscador</label>
       <input id="examSearch" type="search" placeholder="Código, nombre o fabricante..." autocomplete="off">
     </div>
 
@@ -533,10 +532,6 @@ function renderExamList(filter=""){
             <div class="exam-meta">${escapeHtml(exam.title)}</div>
           </div>
           <div class="exam-badge">${escapeHtml(exam.manufacturer)}</div>
-        </div>
-
-        <div class="exam-card-count">
-          ${exam.questionCount !== null ? `${exam.questionCount} preguntas` : "Preguntas"}
         </div>
 
         <button class="primary exam-select" onclick="selectExam(${index})">
