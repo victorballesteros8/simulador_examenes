@@ -141,6 +141,27 @@ main{padding:8px 12px 28px}
   color:var(--muted);background:var(--bg2);border:1px solid var(--line);font-size:12px;font-weight:900;
 }
 .answer-text{padding-top:3px;font-size:14px;line-height:1.45;font-weight:650}
+.multi-hint{
+  margin:-4px 0 11px;
+  padding:10px 12px;
+  color:var(--accent);
+  background:var(--accent-soft);
+  border:1px solid var(--accent-border);
+  border-radius:12px;
+  font-size:11px;
+  font-weight:850;
+  text-align:center;
+}
+.answer.selected{
+  background:var(--accent-soft);
+  border-color:var(--accent);
+  box-shadow:0 0 0 1px rgba(184,243,75,.12);
+}
+.answer.selected .answer-letter{
+  color:#0b0d0f;
+  background:var(--accent);
+  border-color:var(--accent);
+}
 .answer.correct{background:var(--success-soft);border-color:var(--success-border)}
 .answer.correct .answer-letter{color:#07150e;background:var(--success);border-color:var(--success)}
 .answer.wrong{background:var(--danger-soft);border-color:var(--danger-border)}
@@ -314,6 +335,7 @@ let currentQuestion = 0;
 let correctAnswers = 0;
 let answered = false;
 let lastQuestionCount = 0;
+let selectedAnswerIndexes = new Set();
 
 /* ============================================================
    UTILIDADES
@@ -513,6 +535,10 @@ function renderExamList(filter=""){
           <div class="exam-badge">${escapeHtml(exam.manufacturer)}</div>
         </div>
 
+        <div class="exam-card-count">
+          ${exam.questionCount !== null ? `${exam.questionCount} preguntas` : "Preguntas"}
+        </div>
+
         <button class="primary exam-select" onclick="selectExam(${index})">
           Seleccionar examen →
         </button>
@@ -617,7 +643,9 @@ function normalizeQuestion(question){
     return {
       question:"",
       answers:[],
-      correctIndex:-1
+      correctIndexes:[],
+      isMultiple:false,
+      correctAnswer:null
     };
   }
 
@@ -627,24 +655,37 @@ function normalizeQuestion(question){
 
   /*
     IMPORTANTÍSIMO:
-    correct_index es la referencia principal.
+    correct_index es siempre la referencia principal.
 
-    correct_answer NO se utiliza para decidir cuál es la respuesta
-    correcta. Se conserva únicamente como dato adicional.
+    Puede ser:
+      2
+    para una única respuesta correcta, o:
+      [0, 2, 3]
+    para una pregunta multirespuesta.
+
+    correct_answer es únicamente un dato adicional y nunca se usa
+    para decidir si la respuesta es correcta.
   */
-  let originalCorrectIndex = Number.isInteger(question.correct_index)
-    ? question.correct_index
-    : parseInt(question.correct_index,10);
+  let rawCorrectIndexes;
 
-  if(!Number.isInteger(originalCorrectIndex) ||
-     originalCorrectIndex<0 ||
-     originalCorrectIndex>=answers.length){
-    originalCorrectIndex = -1;
+  if(Array.isArray(question.correct_index)){
+    rawCorrectIndexes = question.correct_index;
+  }else{
+    rawCorrectIndexes = [question.correct_index];
   }
 
+  const originalCorrectIndexes = rawCorrectIndexes
+    .map(value=>Number.isInteger(value) ? value : parseInt(value,10))
+    .filter(index =>
+      Number.isInteger(index) &&
+      index>=0 &&
+      index<answers.length
+    );
+
+  const uniqueCorrectIndexes = [...new Set(originalCorrectIndexes)];
+
   /*
-    Barajamos las respuestas conservando la referencia al índice
-    correcto original.
+    Barajamos las respuestas conservando el índice original.
   */
   const answerObjects = answers.map((text,index)=>({
     text,
@@ -653,25 +694,23 @@ function normalizeQuestion(question){
 
   const shuffledAnswers = shuffle(answerObjects);
 
-  const newCorrectIndex =
-    shuffledAnswers.findIndex(a=>a.originalIndex===originalCorrectIndex);
+  const newCorrectIndexes = shuffledAnswers
+    .map((answer,newIndex)=>(
+      uniqueCorrectIndexes.includes(answer.originalIndex) ? newIndex : -1
+    ))
+    .filter(index=>index!==-1);
 
   return {
     question:String(question.question ?? ""),
     answers:shuffledAnswers.map(a=>a.text),
-    correctIndex:newCorrectIndex,
-
-    /*
-      Campo adicional, por si algún JSON lo incluye.
-      No se utiliza como referencia principal.
-    */
+    correctIndexes:newCorrectIndexes,
+    isMultiple:newCorrectIndexes.length>1,
     correctAnswer:
       question.correct_answer !== undefined
-        ? String(question.correct_answer)
+        ? question.correct_answer
         : null
   };
 }
-
 /* ============================================================
    EXAMEN
    ============================================================ */
@@ -680,6 +719,7 @@ function renderQuestion(){
   const q = selectedQuestions[currentQuestion];
 
   answered = false;
+  selectedAnswerIndexes = new Set();
 
   const total = selectedQuestions.length;
   const number = currentQuestion+1;
@@ -701,9 +741,15 @@ function renderQuestion(){
 
   const letters = "ABCDEFGHIJKLMNOPQRSTUVWXYZ";
 
+  const multipleHint = q.isMultiple
+    ? `<div class="multi-hint">✓ Selecciona todas las respuestas correctas</div>`
+    : "";
+
   document.getElementById("answers").innerHTML =
+    multipleHint +
     q.answers.map((answer,index)=>`
-      <button class="answer" onclick="answerQuestion(${index})">
+      <button class="answer ${q.isMultiple ? "multi-answer" : ""}"
+              onclick="selectAnswer(${index})">
         <span class="answer-letter">${letters[index] || "?"}</span>
         <span class="answer-text">${escapeHtml(answer)}</span>
       </button>
@@ -714,34 +760,116 @@ function renderQuestion(){
   feedback.innerHTML = "";
 
   const next = document.getElementById("nextButton");
-  next.classList.add("hidden");
-  next.textContent =
-    currentQuestion===total-1
-      ? "Ver resultado →"
-      : "Siguiente →";
+
+  if(q.isMultiple){
+    next.classList.remove("hidden");
+    next.disabled = true;
+    next.textContent = "Comprobar respuesta";
+  }else{
+    next.classList.add("hidden");
+    next.disabled = false;
+    next.textContent =
+      currentQuestion===total-1
+        ? "Ver resultado →"
+        : "Siguiente →";
+  }
+}
+function selectAnswer(index){
+  if(answered)return;
+
+  const q = selectedQuestions[currentQuestion];
+
+  if(q.isMultiple){
+    if(selectedAnswerIndexes.has(index)){
+      selectedAnswerIndexes.delete(index);
+    }else{
+      selectedAnswerIndexes.add(index);
+    }
+
+    const buttons = [...document.querySelectorAll(".answer")];
+
+    buttons.forEach((button,i)=>{
+      button.classList.toggle(
+        "selected",
+        selectedAnswerIndexes.has(i)
+      );
+    });
+
+    document.getElementById("nextButton").disabled =
+      selectedAnswerIndexes.size===0;
+
+  }else{
+    answerQuestion(index);
+  }
 }
 
 function answerQuestion(selectedIndex){
   if(answered)return;
 
+  const q = selectedQuestions[currentQuestion];
+
+  if(q.isMultiple){
+    return;
+  }
+
   answered = true;
 
-  const q = selectedQuestions[currentQuestion];
-  const buttons = [...document.querySelectorAll(".answer")];
+  const selectedIndexes = new Set([selectedIndex]);
+  evaluateAnswer(selectedIndexes);
+}
 
+function checkMultipleAnswer(){
+  if(answered)return;
+
+  const q = selectedQuestions[currentQuestion];
+
+  if(!q.isMultiple){
+    nextQuestion();
+    return;
+  }
+
+  if(selectedAnswerIndexes.size===0)return;
+
+  answered = true;
+  evaluateAnswer(selectedAnswerIndexes);
+}
+
+function evaluateAnswer(selectedIndexes){
+  const q = selectedQuestions[currentQuestion];
+
+  const correctSet = new Set(q.correctIndexes);
+
+  /*
+    Una multirespuesta solo es correcta cuando el conjunto elegido
+    coincide EXACTAMENTE con el conjunto de correct_indexes.
+
+    Ejemplo:
+      correct_indexes = [0,2,3]
+
+    [0]       -> incorrecta
+    [0,2]     -> incorrecta
+    [0,2,3]   -> correcta
+    [0,1,2,3] -> incorrecta
+  */
   const isCorrect =
-    selectedIndex === q.correctIndex;
+    selectedIndexes.size === correctSet.size &&
+    [...selectedIndexes].every(index=>correctSet.has(index));
 
   if(isCorrect){
     correctAnswers++;
   }
 
+  const buttons = [...document.querySelectorAll(".answer")];
+
   buttons.forEach((button,index)=>{
     button.disabled = true;
 
-    if(index===q.correctIndex){
+    const isCorrectOption = correctSet.has(index);
+    const wasSelected = selectedIndexes.has(index);
+
+    if(isCorrectOption){
       button.classList.add("correct");
-    }else if(index===selectedIndex && !isCorrect){
+    }else if(wasSelected){
       button.classList.add("wrong");
     }else{
       button.classList.add("dimmed");
@@ -754,19 +882,20 @@ function answerQuestion(selectedIndex){
     feedback.className = "feedback correct";
     feedback.innerHTML = `
       <div class="feedback-title">✓ ¡Correcto!</div>
-      <div>Has seleccionado la respuesta correcta.</div>
+      <div>Has seleccionado todas las respuestas correctas.</div>
     `;
   }else{
-    const correctText =
-      q.correctIndex>=0 && q.correctIndex<q.answers.length
-        ? q.answers[q.correctIndex]
-        : "No disponible";
+    const correctTexts = q.correctIndexes
+      .map(index=>q.answers[index])
+      .filter(value=>value!==undefined);
 
     feedback.className = "feedback wrong";
     feedback.innerHTML = `
       <div class="feedback-title">✕ Incorrecto</div>
-      <div>La respuesta correcta es:</div>
-      <div class="feedback-answer">${escapeHtml(correctText)}</div>
+      <div>Debías seleccionar exactamente estas respuestas:</div>
+      <div class="feedback-answer">
+        ${correctTexts.map(escapeHtml).join("<br>")}
+      </div>
     `;
   }
 
@@ -776,15 +905,33 @@ function answerQuestion(selectedIndex){
   document.getElementById("progressBar").style.width =
     `${((currentQuestion+1)/selectedQuestions.length)*100}%`;
 
-  document.getElementById("nextButton").classList.remove("hidden");
+  const next = document.getElementById("nextButton");
+  next.disabled = false;
+  next.textContent =
+    currentQuestion===selectedQuestions.length-1
+      ? "Ver resultado →"
+      : "Siguiente →";
+
+  /*
+    En una pregunta de respuesta única el botón aparece después
+    de responder. En multirespuesta ya estaba visible.
+  */
+  next.classList.remove("hidden");
 
   requestAnimationFrame(()=>{
     feedback.scrollIntoView({behavior:"smooth",block:"nearest"});
   });
 }
-
 function nextQuestion(){
-  if(!answered)return;
+  if(!answered){
+    const q = selectedQuestions[currentQuestion];
+
+    if(q && q.isMultiple){
+      checkMultipleAnswer();
+    }
+
+    return;
+  }
 
   if(currentQuestion>=selectedQuestions.length-1){
     finishExam();
