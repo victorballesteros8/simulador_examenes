@@ -29,5 +29,17 @@
         2,
         3
       ]
-    }]
+    },
+    {
+      "question": "After data is ingested, which data management step is essential to ensure raw data can be accelerated by a Data Model and used by ES?",
+      "answers": [
+        "Applying Tags.",
+        "Normalization to Customer Standard.",
+        "Normalization to the Splunk Common Information Model.",
+        "Extracting Fields."
+      ],
+      "correct_answer": "Normalization to the Splunk Common Information Model.",
+      "correct_index": 2
+    }
+  ]
 }
