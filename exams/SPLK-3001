@@ -1,0 +1,1074 @@
+{
+  "questions": [
+    {
+      "question": "The Add-On Builder creates Splunk Apps that start with what?",
+      "answers": [
+        "DA-",
+        "SA-",
+        "TA-",
+        "App-"
+      ],
+      "correct_answer": "TA-",
+      "correct_index": 2
+    },
+    {
+      "question": "Which of the following are examples of sources for events in the endpoint security domain dashboards?",
+      "answers": [
+        "REST API invocations.",
+        "Investigation final results status.",
+        "Workstations, notebooks, and point-of-sale systems.",
+        "Lifecycle auditing of incidents, from assignment to resolution."
+      ],
+      "correct_answer": "Workstations, notebooks, and point-of-sale systems.",
+      "correct_index": 2
+    },
+    {
+      "question": "When creating custom correlation searches, what format is used to embed field values in the title, description, and drill-down fields of a notable event?",
+      "answers": [
+        "$fieldname$",
+        "ג€fieldnameג€",
+        "%fieldname%",
+        "_fieldname_"
+      ],
+      "correct_answer": "$fieldname$",
+      "correct_index": 0
+    },
+    {
+      "question": "What feature of Enterprise Security downloads threat intelligence data from a web server?",
+      "answers": [
+        "Threat Service Manager",
+        "Threat Download Manager",
+        "Threat Intelligence Parser",
+        "Threat Intelligence Enforcement"
+      ],
+      "correct_answer": "Threat Download Manager",
+      "correct_index": 1
+    },
+    {
+      "question": "The Remote Access panel within the User Activity dashboard is not populating with the most recent hour of data.What data model should be checked for potential errors such as skipped searches?",
+      "answers": [
+        "Web",
+        "Risk",
+        "Performance",
+        "Authentication"
+      ],
+      "correct_answer": "Authentication",
+      "correct_index": 3
+    },
+    {
+      "question": "In order to include an eventtype in a data model node, what is the next step after extracting the correct fields?",
+      "answers": [
+        "Save the settings.",
+        "Apply the correct tags.",
+        "Run the correct search.",
+        "Visit the CIM dashboard."
+      ],
+      "correct_answer": "Apply the correct tags.",
+      "correct_index": 1
+    },
+    {
+      "question": "What role should be assigned to a security team member who will be taking ownership of notable events in the incident review dashboard?",
+      "answers": [
+        "ess_user",
+        "ess_admin",
+        "ess_analyst",
+        "ess_reviewer"
+      ],
+      "correct_answer": "ess_analyst",
+      "correct_index": 2
+    },
+    {
+      "question": "Which column in the Asset or Identity list is combined with event security to make a notable event's urgency?",
+      "answers": [
+        "VIP",
+        "Priority",
+        "Importance",
+        "Criticality"
+      ],
+      "correct_answer": "Priority",
+      "correct_index": 1
+    },
+    {
+      "question": "What does the risk framework add to an object (user, server or other type) to indicate increased risk?",
+      "answers": [
+        "An urgency.",
+        "A risk profile.",
+        "An aggregation.",
+        "A numeric score."
+      ],
+      "correct_answer": "A numeric score.",
+      "correct_index": 3
+    },
+    {
+      "question": "Which indexes are searched by default for CIM data models?",
+      "answers": [
+        "notable and default",
+        "summary and notable",
+        "_internal and summary",
+        "All indexes"
+      ],
+      "correct_answer": "All indexes",
+      "correct_index": 3
+    },
+    {
+      "question": "Which setting is used in indexes.conf to specify alternate locations for accelerated storage?",
+      "answers": [
+        "thawedPath",
+        "tstatsHomePath",
+        "summaryHomePath",
+        "warmToColdScript"
+      ],
+      "correct_answer": "tstatsHomePath",
+      "correct_index": 1
+    },
+    {
+      "question": "Which of the following is a way to test for a property normalized data model?",
+      "answers": [
+        "Use Audit -> Normalization Audit and check the Errors panel.",
+        "Run a | datamodel search, compare results to the CIM documentation for the datamodel.",
+        "Run a | loadjob search, look at tag values and compare them to known tags based on the encoding.",
+        "Run a | datamodel search and compare the results to the list of data models in the ES normalization guide."
+      ],
+      "correct_answer": "Run a | datamodel search, compare results to the CIM documentation for the datamodel.",
+      "correct_index": 1
+    },
+    {
+      "question": "Which argument to the | tstats command restricts the search to summarized data only?",
+      "answers": [
+        "summaries=t",
+        "summaries=all",
+        "summariesonly=t",
+        "summariesonly=all"
+      ],
+      "correct_answer": "summariesonly=t",
+      "correct_index": 2
+    },
+    {
+      "question": "When investigating, what is the best way to store a newly-found IOC?",
+      "answers": [
+        "Paste it into Notepad.",
+        "Click the ג€Add IOCג€ button.",
+        "Click the ג€Add Artifactג€ button.",
+        "Add it in a text note to the investigation."
+      ],
+      "correct_answer": "Click the ג€Add Artifactג€ button.",
+      "correct_index": 2
+    },
+    {
+      "question": "How is it possible to navigate to the list of currently-enabled ES correlation searches?",
+      "answers": [
+        "Configure -> Correlation Searches -> Select Status ג€Enabledג€",
+        "Settings -> Searches, Reports, and Alerts -> Filter by Name of ג€Correlationג€",
+        "Configure -> Content Management -> Select Type ג€Correlationג€ and Status ג€Enabledג€",
+        "Settings -> Searches, Reports, and Alerts -> Select App of ג€SplunkEnterpriseSecuritySuiteג€ and filter by ג€-Ruleג€"
+      ],
+      "correct_answer": "Configure -> Content Management -> Select Type ג€Correlationג€ and Status ג€Enabledג€",
+      "correct_index": 2
+    },
+    {
+      "question": "Which of the following is a risk of using the Auto Deployment feature of Distributed Configuration Management to distribute indexes.conf?",
+      "answers": [
+        "Indexers might crash.",
+        "Indexers might be processing.",
+        "Indexers might not be reachable.",
+        "Indexers have different settings."
+      ],
+      "correct_answer": "Indexers have different settings.",
+      "correct_index": 3
+    },
+    {
+      "question": "Which of the following are data models used by ES? (Choose all that apply.)",
+      "answers": [
+        "Web",
+        "Anomalies",
+        "Authentication",
+        "Network Traffic"
+      ],
+      "correct_answer": [
+        "Web",
+        "Authentication",
+        "Network Traffic"
+      ],
+      "correct_index": [
+        0,
+        2,
+        3
+      ]
+    },
+    {
+      "question": "At what point in the ES installation process should Splunk_TA_ForIndexers.spl be deployed to the indexers?",
+      "answers": [
+        "When adding apps to the deployment server.",
+        "Splunk_TA_ForIndexers.spl is installed first.",
+        "After installing ES on the search head(s) and running the distributed configuration management tool.",
+        "Splunk_TA_ForIndexers.spl is only installed on indexer cluster sites using the cluster master and the splunk apply cluster-bundle command."
+      ],
+      "correct_answer": "After installing ES on the search head(s) and running the distributed configuration management tool.",
+      "correct_index": 2
+    },
+    {
+      "question": "Which correlation search feature is used to throttle the creation of notable events?",
+      "answers": [
+        "Schedule priority.",
+        "Window interval.",
+        "Window duration.",
+        "Schedule window."
+      ],
+      "correct_answer": "Window duration.",
+      "correct_index": 2
+    },
+    {
+      "question": "Both `Recommended Actions` and `Adaptive Response Actions` use adaptive response. How do they differ?",
+      "answers": [
+        "Recommended Actions show a textual description to an analyst, Adaptive Response Actions show them encoded.",
+        "Recommended Actions show a list of Adaptive Responses to an analyst, Adaptive Response Actions run them automatically.",
+        "Recommended Actions show a list of Adaptive Responses that have already been run, Adaptive Response Actions run them automatically.",
+        "Recommended Actions show a list of Adaptive Resposes to an analyst, Adaptive Response Actions run manually with analyst intervention."
+      ],
+      "correct_answer": "Recommended Actions show a list of Adaptive Responses to an analyst, Adaptive Response Actions run them automatically.",
+      "correct_index": 1
+    },
+    {
+      "question": "What does the Security Posture dashboard display?",
+      "answers": [
+        "Active investigations and their status.",
+        "A high-level overview of notable events.",
+        "Current threats being tracked by the SOC.",
+        "A display of the status of security tools."
+      ],
+      "correct_answer": "A high-level overview of notable events.",
+      "correct_index": 1
+    },
+    {
+      "question": "`10.22.63.159`, `websvr4`, and `00:26:08:18: CF:1D` would be matched against what in ES?",
+      "answers": [
+        "A user.",
+        "A device.",
+        "An asset.",
+        "An identity."
+      ],
+      "correct_answer": "An asset.",
+      "correct_index": 2
+    },
+    {
+      "question": "How should an administrator add a new lookup through the ES app?",
+      "answers": [
+        "Upload the lookup file in Settings -> Lookups -> Lookup Definitions",
+        "Upload the lookup file in Settings -> Lookups -> Lookup table files",
+        "Add the lookup file to /etc/apps/SplunkEnterpriseSecuritySuite/lookups",
+        "Upload the lookup file using Configure -> Content Management -> Create New Content -> Managed Lookup"
+      ],
+      "correct_answer": "Upload the lookup file using Configure -> Content Management -> Create New Content -> Managed Lookup",
+      "correct_index": 3
+    },
+    {
+      "question": "Glass tables can display static images and text, the results of ad-hoc searches, and which of the following objects?",
+      "answers": [
+        "Lookup searches.",
+        "Summarized data.",
+        "Security metrics.",
+        "Metrics store searches."
+      ],
+      "correct_answer": "Security metrics.",
+      "correct_index": 2
+    },
+    {
+      "question": "Which of the following is a key feature of a glass table?",
+      "answers": [
+        "Rigidity.",
+        "Customization.",
+        "Interactive investigations.",
+        "Strong data for later retrieval."
+      ],
+      "correct_answer": "Customization.",
+      "correct_index": 1
+    },
+    {
+      "question": "An administrator is asked to configure an `Nslookup` adaptive response action, so that it appears as a selectable option in the notable event's action menu when an analyst is working in the Incident Review dashboard.What steps would the administrator take to configure this option?",
+      "answers": [
+        "Configure -> Content Management -> Type: Correlation Search -> Notable -> Nslookup",
+        "Configure -> Type: Correlation Search -> Notable -> Recommended Actions -> Nslookup",
+        "Configure -> Content Management -> Type: Correlation Search -> Notable -> Next Steps -> Nslookup",
+        "Configure -> Content Management -> Type: Correlation Search -> Notable -> Recommended Actions -> Nslookup"
+      ],
+      "correct_answer": "Configure -> Content Management -> Type: Correlation Search -> Notable -> Recommended Actions -> Nslookup",
+      "correct_index": 3
+    },
+    {
+      "question": "What are the steps to add a new column to the Notable Event table in the Incident Review dashboard?",
+      "answers": [
+        "Configure -> Incident Management -> Notable Event Statuses",
+        "Configure -> Content Management -> Type: Correlation Search",
+        "Configure -> Incident Management -> Incident Review Settings -> Event Management",
+        "Configure -> Incident Management -> Incident Review Settings -> Table Attributes"
+      ],
+      "correct_answer": "Configure -> Incident Management -> Incident Review Settings -> Table Attributes",
+      "correct_index": 3
+    },
+    {
+      "question": "To observe what network services are in use in a network's activity overall, which of the following dashboards in Enterprise Security will contain the most relevant data?",
+      "answers": [
+        "Intrusion Center",
+        "Protocol Analysis",
+        "User Intelligence",
+        "Threat Intelligence"
+      ],
+      "correct_answer": "Protocol Analysis",
+      "correct_index": 1
+    },
+    {
+      "question": "Adaptive response action history is stored in which index?",
+      "answers": [
+        "cim_modactions",
+        "modular_history",
+        "cim_adaptiveactions",
+        "modular_action_history"
+      ],
+      "correct_answer": "cim_modactions",
+      "correct_index": 0
+    },
+    {
+      "question": "Which of the following actions would not reduce the number of false positives from a correlation search?",
+      "answers": [
+        "Reducing the severity.",
+        "Removing throttling fields.",
+        "Increasing the throttling window.",
+        "Increasing threshold sensitivity."
+      ],
+      "correct_answer": "Reducing the severity.",
+      "correct_index": 0
+    },
+    {
+      "question": "Where is the Add-On Builder available from?",
+      "answers": [
+        "GitHub",
+        "SplunkBase",
+        "www.splunk.com",
+        "The ES installation package"
+      ],
+      "correct_answer": "SplunkBase",
+      "correct_index": 1
+    },
+    {
+      "question": "Which of the following would allow an add-on to be automatically imported into Splunk Enterprise Security?",
+      "answers": [
+        "A prefix of CIM_",
+        "A suffix of .spl",
+        "A prefix of TECH_",
+        "A prefix of Splunk_TA_"
+      ],
+      "correct_answer": "A prefix of Splunk_TA_",
+      "correct_index": 3
+    },
+    {
+      "question": "ES apps and add-ons from $SPLUNK_HOME/etc/apps should be copied from the staging instance to what location on the cluster deployer instance?",
+      "answers": [
+        "$SPLUNK_HOME/etc/master-apps/",
+        "$SPLUNK_HOME/etc/system/local/",
+        "$SPLUNK_HOME/etc/shcluster/apps",
+        "$SPLUNK_HOME/var/run/searchpeers/"
+      ],
+      "correct_answer": "$SPLUNK_HOME/etc/shcluster/apps",
+      "correct_index": 2
+    },
+    {
+      "question": "How is notable event urgency calculated?",
+      "answers": [
+        "Asset priority and threat weight.",
+        "Alert severity found by the correlation search.",
+        "Asset or identity risk and severity found by the correlation search.",
+        "Severity set by the correlation search and priority assigned to the associated asset or identity."
+      ],
+      "correct_answer": "Severity set by the correlation search and priority assigned to the associated asset or identity.",
+      "correct_index": 3
+    },
+    {
+      "question": "What kind of value is in the red box in this picture?",
+      "answers": [
+        "A risk score.",
+        "A source ranking.",
+        "An event priority.",
+        "An IP address rating."
+      ],
+      "correct_answer": "A risk score.",
+      "correct_index": 0
+    },
+    {
+      "question": "Where is it possible to export content, such as correlation searches, from ES?",
+      "answers": [
+        "Content exporter",
+        "Configure -> Content Management",
+        "Export content dashboard",
+        "Settings Menu -> ES -> Export"
+      ],
+      "correct_answer": "Configure -> Content Management",
+      "correct_index": 1
+    },
+    {
+      "question": "Which of the following threat intelligence types can ES download? (Choose all that apply.)",
+      "answers": [
+        "Text",
+        "STIX/TAXII",
+        "VulnScanSPL",
+        "SplunkEnterpriseThreatGenerator"
+      ],
+      "correct_answer": [
+        "Text",
+        "STIX/TAXII"
+      ],
+      "correct_index": [
+        0,
+        1
+      ]
+    },
+    {
+      "question": "A site has a single existing search head which hosts a mix of both CIM and non-CIM compliant applications. All of the applications are mission-critical. The customer wants to carefully control cost, but wants good ES performance.What is the best practice for installing ES?",
+      "answers": [
+        "Install ES on the existing search head.",
+        "Add a new search head and install ES on it.",
+        "Increase the number of CPUs and amount of memory on the search head, then install ES.",
+        "Delete the non-CIM-compliant apps from the search head, then install ES."
+      ],
+      "correct_answer": "Add a new search head and install ES on it.",
+      "correct_index": 1
+    },
+    {
+      "question": "Enterprise Security's dashboards primarily pull data from what type of knowledge object?",
+      "answers": [
+        "Tstats",
+        "KV Store",
+        "Data models",
+        "Dynamic lookups"
+      ],
+      "correct_answer": "Data models",
+      "correct_index": 2
+    },
+    {
+      "question": "To which of the following should the ES application be uploaded?",
+      "answers": [
+        "The indexer.",
+        "The KV Store.",
+        "The search head.",
+        "The dedicated forwarder."
+      ],
+      "correct_answer": "The search head.",
+      "correct_index": 2
+    },
+    {
+      "question": "If a username does not match the `˜identity' column in the identities list, which column is checked next?",
+      "answers": [
+        "Email.",
+        "Nickname",
+        "IP address.",
+        "Combination of Last Name, First Name."
+      ],
+      "correct_answer": "Email.",
+      "correct_index": 0
+    },
+    {
+      "question": "Which of the following features can the Add-on Builder configure in a new add-on?",
+      "answers": [
+        "Expire data.",
+        "Normalize data.",
+        "Summarize data.",
+        "Translate data."
+      ],
+      "correct_answer": "Normalize data.",
+      "correct_index": 1
+    },
+    {
+      "question": "What is the maximum recommended volume of indexing per day, per indexer, for a non-cloud (on-prem) ES deployment?",
+      "answers": [
+        "50 GB",
+        "100 GB",
+        "300 GB",
+        "500 MB"
+      ],
+      "correct_answer": "100 GB",
+      "correct_index": 1
+    },
+    {
+      "question": "ES needs to be installed on a search head with which of the following options?",
+      "answers": [
+        "No other apps.",
+        "Any other apps installed.",
+        "All apps removed except for TA-*.",
+        "Only default built-in and CIM-compliant apps."
+      ],
+      "correct_answer": "Only default built-in and CIM-compliant apps.",
+      "correct_index": 3
+    },
+    {
+      "question": "Which settings indicates that the correlation search will be executed as new events are indexed?",
+      "answers": [
+        "Always-On",
+        "Real-Time",
+        "Scheduled",
+        "Continuous"
+      ],
+      "correct_answer": "Real-Time",
+      "correct_index": 1
+    },
+    {
+      "question": "Where are attachments to investigations stored?",
+      "answers": [
+        "KV Store",
+        "notable index",
+        "attachments.csv lookup",
+        "<splunk_home>/etc/apps/SA-Investigations/default/ui/views/attachments"
+      ],
+      "correct_answer": "KV Store",
+      "correct_index": 0
+    },
+    {
+      "question": "Which data model populates the panels on the Risk Analysis dashboard?",
+      "answers": [
+        "Risk",
+        "Audit",
+        "Domain analysis",
+        "Threat intelligence"
+      ],
+      "correct_answer": "Risk",
+      "correct_index": 0
+    },
+    {
+      "question": "How is it possible to navigate to the ES graphical Navigation Bar editor?",
+      "answers": [
+        "Configure -> Navigation Menu",
+        "Configure -> General -> Navigation",
+        "Settings -> User Interface -> Navigation -> Click on ג€Enterprise Securityג€",
+        "Settings -> User Interface -> Navigation Menus -> Click on ג€defaultג€ next to SplunkEnterpriseSecuritySuite"
+      ],
+      "correct_answer": "Configure -> General -> Navigation",
+      "correct_index": 1
+    },
+    {
+      "question": "An administrator is provisioning one search head prior to installing ES.What are the reference minimum requirements for OS, CPU, and RAM for that machine?",
+      "answers": [
+        "OS: 32 bit, RAM: 16 MB, CPU: 12 cores",
+        "OS: 64 bit, RAM: 32 MB, CPU: 12 cores",
+        "OS: 64 bit, RAM: 12 MB, CPU: 16 cores",
+        "OS: 64 bit, RAM: 32 MB, CPU: 16 cores"
+      ],
+      "correct_answer": "OS: 64 bit, RAM: 32 MB, CPU: 16 cores",
+      "correct_index": 3
+    },
+    {
+      "question": "What tools does the Risk Analysis dashboard provide?",
+      "answers": [
+        "High risk threats.",
+        "Notable event domains displayed by risk score.",
+        "A display of the highest risk assets and identities.",
+        "Key indicators showing the highest probability correlation searches in the environment."
+      ],
+      "correct_answer": "A display of the highest risk assets and identities.",
+      "correct_index": 2
+    },
+    {
+      "question": "When ES content is exported, an app with a .spl extension is automatically created.What is the best practice when exporting and importing updates to ES content?",
+      "answers": [
+        "Use new app names each time content is exported.",
+        "Do not use the .spl extension when naming an export.",
+        "Always include existing and new content for each export.",
+        "Either use new app names or always include both existing and new content."
+      ],
+      "correct_answer": "Either use new app names or always include both existing and new content.",
+      "correct_index": 3
+    },
+    {
+      "question": "Who can delete an investigation?",
+      "answers": [
+        "ess_admin users only.",
+        "The investigation owner only.",
+        "The investigation owner and ess-admin.",
+        "The investigation owner and collaborators."
+      ],
+      "correct_answer": "ess_admin users only.",
+      "correct_index": 0
+    },
+    {
+      "question": "After installing Enterprise Security, the distributed configuration management tool can be used to create which app to configure indexers?",
+      "answers": [
+        "Splunk_DS_ForIndexers.spl",
+        "Splunk_ES_ForIndexers.spl",
+        "Splunk_SA_ForIndexers.spl",
+        "Splunk_TA_ForIndexers.spl"
+      ],
+      "correct_answer": "Splunk_TA_ForIndexers.spl",
+      "correct_index": 3
+    },
+    {
+      "question": "The Brute Force Access Behavior Detected correlation search is enabled, and is generating many false positives. Assuming the input data has already been validated.How can the correlation search be made less sensitive?",
+      "answers": [
+        "Edit the search and modify the notable event status field to make the notable events less urgent.",
+        "Edit the search, look for where or xswhere statements, and after the threshold value being compared to make it less common match.",
+        "Edit the search, look for where or xswhere statements, and alter the threshold value being compared to make it a more common match.",
+        "Modify the urgency table for this correlation search and add a new severity level to make notable events from this search less urgent."
+      ],
+      "correct_answer": "Edit the search, look for where or xswhere statements, and after the threshold value being compared to make it less common match.",
+      "correct_index": 1
+    },
+    {
+      "question": "Which of the following actions can improve overall search performance?",
+      "answers": [
+        "Disable indexed real-time search.",
+        "Increase priority of all correlation searches.",
+        "Reduce the frequency (schedule) of lower-priority correlation searches.",
+        "Add notable event suppressions for correlation searches with high numbers of false positives."
+      ],
+      "correct_answer": "Reduce the frequency (schedule) of lower-priority correlation searches.",
+      "correct_index": 2
+    },
+    {
+      "question": "Which of the following ES features would a security analyst use while investigating a network anomaly notable?",
+      "answers": [
+        "Correlation editor.",
+        "Key indicator search.",
+        "Threat download dashboard.",
+        "Protocol intelligence dashboard."
+      ],
+      "correct_answer": "Protocol intelligence dashboard.",
+      "correct_index": 3
+    },
+    {
+      "question": "Which component normalizes events?",
+      "answers": [
+        "SA-CIM.",
+        "SA-Notable.",
+        "ES application.",
+        "Technology add-on."
+      ],
+      "correct_answer": "Technology add-on.",
+      "correct_index": 3
+    },
+    {
+      "question": "An administrator wants to ensure that none of the ES indexed data could be compromised through tampering.What feature would satisfy this requirement?",
+      "answers": [
+        "Index consistency.",
+        "Data integrity control.",
+        "Indexer acknowledgement.",
+        "Index access permissions."
+      ],
+      "correct_answer": "Data integrity control.",
+      "correct_index": 1
+    },
+    {
+      "question": "What is the first step when preparing to install ES?",
+      "answers": [
+        "Install ES.",
+        "Determine the data sources used.",
+        "Determine the hardware required.",
+        "Determine the size and scope of installation."
+      ],
+      "correct_answer": "Determine the size and scope of installation.",
+      "correct_index": 3
+    },
+    {
+      "question": "What is the default schedule for accelerating ES Datamodels?",
+      "answers": [
+        "1 minute",
+        "5 minutes",
+        "15 minutes",
+        "1 hour"
+      ],
+      "correct_answer": "5 minutes",
+      "correct_index": 1
+    },
+    {
+      "question": "Accelerated data requires approximately how many times the daily data volume of additional storage space per year?",
+      "answers": [
+        "3.4",
+        "5.7",
+        "1.0",
+        "2.5"
+      ],
+      "correct_answer": "3.4",
+      "correct_index": 0
+    },
+    {
+      "question": "When installing Enterprise Security, what should be done after installing the add-ons necessary for normalizing data?",
+      "answers": [
+        "Nothing, there are no additional steps for add-ons.",
+        "Configure the add-ons via the Content Management dashboard.",
+        "Disable the add-ons until they are ready to be used, then enable the add-ons.",
+        "Configure the add-ons according to their README or documentation."
+      ],
+      "correct_answer": "Configure the add-ons according to their README or documentation.",
+      "correct_index": 3
+    },
+    {
+      "question": "What can be exported from ES using the Content Management page?",
+      "answers": [
+        "Only correlation searches, managed lookups, and glass tables.",
+        "Only correlation searches.",
+        "Any content type listed in the Content Management page.",
+        "Only correlation searches, glass tables, and workbench panels."
+      ],
+      "correct_answer": "Any content type listed in the Content Management page.",
+      "correct_index": 2
+    },
+    {
+      "question": "Where should an ES search head be installed?",
+      "answers": [
+        "On a Splunk server with top level visibility.",
+        "On any Splunk server.",
+        "On a server with a new install of Splunk.",
+        "On a Splunk server running Splunk DB Connect."
+      ],
+      "correct_answer": "On a server with a new install of Splunk.",
+      "correct_index": 2
+    },
+    {
+      "question": "Following the installation of ES, an admin configured users with the ess_user role the ability to close notable events.How would the admin restrict these users from being able to change the status of Resolved notable events to Closed?",
+      "answers": [
+        "In Enterprise Security, give the ess_user role the Own Notable Events permission.",
+        "From the Status Configuration window select the Closed status. Remove ess_user from the status transitions for the Resolved status.",
+        "From the Status Configuration window select the Resolved status. Remove ess_user from the status transitions for the Closed status.",
+        "From Splunk Access Controls, select the ess_user role and remove the edit_notable_events capability."
+      ],
+      "correct_answer": "From the Status Configuration window select the Resolved status. Remove ess_user from the status transitions for the Closed status.",
+      "correct_index": 2
+    },
+    {
+      "question": "Which of the following actions may be necessary before installing ES?",
+      "answers": [
+        "Add additional indexers.",
+        "Redirect distributed search connections.",
+        "Purge KV Store.",
+        "Add additional forwarders."
+      ],
+      "correct_answer": "Add additional indexers.",
+      "correct_index": 0
+    },
+    {
+      "question": "A customer site is experiencing poor performance. The UI response time is high and searches take a very long time to run. Some operations time out and there are errors in the scheduler logs, indicating too many concurrent searches are being started. 6 total correlation searches are scheduled and they have already been tuned to weed out false positives.Which of the following options is most likely to help performance?",
+      "answers": [
+        "Change the search heads to do local indexing of summary searches.",
+        "Add heavy forwarders between the universal forwarders and indexers so inputs can be parsed before indexing.",
+        "Increase memory and CPUs on the search head(s) and add additional indexers.",
+        "If indexed realtime search is enabled, disable it for the notable index."
+      ],
+      "correct_answer": "Increase memory and CPUs on the search head(s) and add additional indexers.",
+      "correct_index": 2
+    },
+    {
+      "question": "What should be used to map a non-standard field name to a CIM field name?",
+      "answers": [
+        "Field alias.",
+        "Search time extraction.",
+        "Tag.",
+        "Eventtype."
+      ],
+      "correct_answer": "Field alias.",
+      "correct_index": 0
+    },
+    {
+      "question": "Which of the following lookup types in Enterprise Security contains information about known hostile IP addresses?",
+      "answers": [
+        "Security domains.",
+        "Threat intel.",
+        "Assets.",
+        "Domains."
+      ],
+      "correct_answer": "Threat intel.",
+      "correct_index": 1
+    },
+    {
+      "question": "A set of correlation searches are enabled at a new ES installation, and results are being monitored. One of the correlation searches is generating many notable events which, when evaluated, are determined to be false positives.What is a solution for this issue?",
+      "answers": [
+        "Suppress notable events from that correlation search.",
+        "Disable acceleration for the correlation search to reduce storage requirements.",
+        "Modify the correlation schedule and sensitivity for your site.",
+        "Change the correlation search's default status and severity."
+      ],
+      "correct_answer": "Modify the correlation schedule and sensitivity for your site.",
+      "correct_index": 2
+    },
+    {
+      "question": "Which of the following steps will make the Threat Activity dashboard the default landing page in ES?",
+      "answers": [
+        "Edit the Threat Activity view settings and checkmark the Default View option.",
+        "From the Edit Navigation page, click the \"Set this as the default view\" checkmark for Threat Activity.",
+        "From the Edit Navigation page, drag and drop the Threat Activity view to the top of the page.",
+        "From the Preferences menu for the user, select Enterprise Security as the default application."
+      ],
+      "correct_answer": "From the Edit Navigation page, click the \"Set this as the default view\" checkmark for Threat Activity.",
+      "correct_index": 1
+    },
+    {
+      "question": "When using distributed configuration management to create the Splunk_TA_ForIndexers package, which three files can be included?",
+      "answers": [
+        "indexes.conf, props.conf, transforms.conf",
+        "web.conf, props.conf, transforms.conf",
+        "inputs.conf, props.conf, transforms.conf",
+        "eventtypes.conf, indexes.conf, tags.conf"
+      ],
+      "correct_answer": "indexes.conf, props.conf, transforms.conf",
+      "correct_index": 0
+    },
+    {
+      "question": "Which feature contains scenarios that are useful during ES implementation?",
+      "answers": [
+        "Adaptive Responses",
+        "Correlation Searches",
+        "Use Case Library",
+        "Predictive Analytics"
+      ],
+      "correct_answer": "Use Case Library",
+      "correct_index": 2
+    },
+    {
+      "question": "Where is detailed information about identities stored?",
+      "answers": [
+        "The Identity Investigator index.",
+        "The Access Anomalies collection.",
+        "The User Activity index.",
+        "The Identity Lookup CSV file."
+      ],
+      "correct_answer": "The Identity Lookup CSV file.",
+      "correct_index": 3
+    },
+    {
+      "question": "The option to create a Short ID for a notable event is located where?",
+      "answers": [
+        "The Additional Fields.",
+        "The Event Details.",
+        "The Contributing Events.",
+        "The Description."
+      ],
+      "correct_answer": "The Event Details.",
+      "correct_index": 1
+    },
+    {
+      "question": "A newly built custom dashboard needs to be available to a team of security analysts in ES.How is it possible to integrate the new dashboard?",
+      "answers": [
+        "Set the dashboard permissions to allow access by es_analysts and use the navigation editor to add it to the menu.",
+        "Add the dashboard to a custom add-in app and install it to ES using the Content Manager.",
+        "Add links on the ES home page to the new dashboard.",
+        "Create a new role inherited from es_analyst, make the dashboard permissions read-only, and make this dashboard the default view for the new role."
+      ],
+      "correct_answer": "Set the dashboard permissions to allow access by es_analysts and use the navigation editor to add it to the menu.",
+      "correct_index": 0
+    },
+    {
+      "question": "What is the bar across the bottom of any ES window?",
+      "answers": [
+        "The Investigator Workbench.",
+        "The Investigation Bar.",
+        "The Compliance Bar.",
+        "The Analyst Bar."
+      ],
+      "correct_answer": "The Investigation Bar.",
+      "correct_index": 1
+    },
+    {
+      "question": "Which two fields combine to create the Urgency of a notable event?",
+      "answers": [
+        "Priority and Severity.",
+        "Priority and Criticality.",
+        "Criticality and Severity.",
+        "Precedence and Time."
+      ],
+      "correct_answer": "Priority and Severity.",
+      "correct_index": 0
+    },
+    {
+      "question": "What do threat gen searches produce?",
+      "answers": [
+        "Threat correlation searches.",
+        "Threat intel in KV Store collections.",
+        "Events in the threat_activity index.",
+        "Threat notables in the notable index."
+      ],
+      "correct_answer": "Events in the threat_activity index.",
+      "correct_index": 2
+    },
+    {
+      "question": "Which of the following is part of tuning correlation searches for a new ES installation?",
+      "answers": [
+        "Configuring correlation permissions.",
+        "Configuring correlation adaptive responses.",
+        "Configuring correlation notable event index.",
+        "Configuring correlation result storage."
+      ],
+      "correct_answer": "Configuring correlation adaptive responses.",
+      "correct_index": 1
+    },
+    {
+      "question": "Which columns in the Assets lookup are used to identify an asset in an event?",
+      "answers": [
+        "src, dvc, dest",
+        "cidr, port, netbios, saml",
+        "ip, mac, dns, nt_host",
+        "host, hostname, url, address"
+      ],
+      "correct_answer": "ip, mac, dns, nt_host",
+      "correct_index": 2
+    },
+    {
+      "question": "What does the summariesonly=true option do for a correlation search?",
+      "answers": [
+        "Searches only accelerated data.",
+        "Forwards summary indexes to the indexing tier.",
+        "Uses a default summary time range.",
+        "Searches summary indexes only."
+      ],
+      "correct_answer": "Searches only accelerated data.",
+      "correct_index": 0
+    },
+    {
+      "question": "Which of the following are the default ports that must be configured for Splunk Enterprise Security to function?",
+      "answers": [
+        "SplunkWeb (8000), Splunk Management (8089), KV Store (8191)",
+        "SplunkWeb (8088), Splunk Management (8089), KV Store (8000)",
+        "SplunkWeb (8043), Splunk Management (8088), KV Store (8191)",
+        "SplunkWeb (8386), Splunk Management (8926), KV Store (8106)"
+      ],
+      "correct_answer": "SplunkWeb (8000), Splunk Management (8089), KV Store (8191)",
+      "correct_index": 0
+    },
+    {
+      "question": "What is the main purpose of the Dashboard Requirements Matrix document?",
+      "answers": [
+        "Identifies on which data model(s) each dashboard depends.",
+        "Provides instructions for customizing each dashboard for local data models.",
+        "Identifies the searches used by the dashboards.",
+        "Identifies which data model(s) depend on each dashboard."
+      ],
+      "correct_answer": "Identifies on which data model(s) each dashboard depends.",
+      "correct_index": 0
+    },
+    {
+      "question": "Which of the following is a recommended pre-installation step?",
+      "answers": [
+        "Install the latest Python distribution on the search head.",
+        "Download the latest version of KV Store from MongoDB.com.",
+        "Configure search head forwarding.",
+        "Disable the default search app."
+      ],
+      "correct_answer": "Configure search head forwarding.",
+      "correct_index": 2
+    },
+    {
+      "question": "What are adaptive responses triggered by?",
+      "answers": [
+        "By correlation searches and users on the incident review dashboard.",
+        "By correlation searches and custom tech add-ons.",
+        "By correlation searches and users on the threat analysis dashboard.",
+        "By custom tech add-ons and users on the risk analysis dashboard."
+      ],
+      "correct_answer": "By correlation searches and users on the incident review dashboard.",
+      "correct_index": 0
+    },
+    {
+      "question": "Which of the following is an adaptive action that is configured by default for ES?",
+      "answers": [
+        "Create new asset",
+        "Create notable event",
+        "Create investigation",
+        "Create new correlation search"
+      ],
+      "correct_answer": "Create notable event",
+      "correct_index": 1
+    },
+    {
+      "question": "Which of the following are the default ports that must be configured for Splunk Enterprise Security to function?",
+      "answers": [
+        "SplunkWeb (8088), Splunk Management (8089), KV Store (8000)",
+        "SplunkWeb (8397), Splunk Management (8877), KV Store (8350)",
+        "SplunkWeb (8043), Splunk Management (8088), KV Store (8191)",
+        "SplunkWeb (8000), Splunk Management (8089), KV Store (8191)"
+      ],
+      "correct_answer": "SplunkWeb (8000), Splunk Management (8089), KV Store (8191)",
+      "correct_index": 3
+    },
+    {
+      "question": "When creating custom correlation searches, what format is used to embed field values in the title, description, and drill-down fields of a notable event?",
+      "answers": [
+        "$fieldname$",
+        "ג€fieldnameג€",
+        "*fieldname*",
+        "_fieldname_"
+      ],
+      "correct_answer": "$fieldname$",
+      "correct_index": 0
+    },
+    {
+      "question": "Which tool is used to update indexers in ES?",
+      "answers": [
+        "Distributed Configuration Management",
+        "Index Updater",
+        "indexes.conf",
+        "Splunk_TA_ForIndexers.spl"
+      ],
+      "correct_answer": "Splunk_TA_ForIndexers.spl",
+      "correct_index": 3
+    },
+    {
+      "question": "How is it possible to specify an alternate location for accelerated storage?",
+      "answers": [
+        "Use the tStatsHomePath setting in indexes.conf",
+        "Update the Home Path setting in indexes.conf",
+        "Use the tstatsHomePath setting in props.conf",
+        "Configure storage optimization settings for the index."
+      ],
+      "correct_answer": "Use the tstatsHomePath setting in props.conf",
+      "correct_index": 2
+    },
+    {
+      "question": "How does ES know local customer domain names so it can detect internal vs. external emails?",
+      "answers": [
+        "Web and email domain names are set in General –> General Configuration.",
+        "ES extracts local email and web domains automatically from SMTP and HTTP logs.",
+        "ES uses the User Activity index and applies machine learning to determine internal and external domains.",
+        "The Corporate Web and Email Domain Lookups are edited during initial configuration."
+      ],
+      "correct_answer": "The Corporate Web and Email Domain Lookups are edited during initial configuration.",
+      "correct_index": 3
+    },
+    {
+      "question": "What is an example of an ES asset?",
+      "answers": [
+        "MAC address",
+        "User name",
+        "People",
+        "Server"
+      ],
+      "correct_answer": "MAC address",
+      "correct_index": 0
+    },
+    {
+      "question": "Analysts have requested the ability to capture and analyze network traffic data. The administrator has researched the documentation and, based on this research, has decided to integrate the Splunk App for Stream with ES.Which dashboards will now be supported so analysts can view and analyze network Stream data?",
+      "answers": [
+        "Endpoint dashboards.",
+        "Protocol Intelligence dashboards.",
+        "User Intelligence dashboards.",
+        "Web Intelligence dashboards."
+      ],
+      "correct_answer": "Protocol Intelligence dashboards.",
+      "correct_index": 1
+    },
+    {
+      "question": "After managing source types and extracting fields, which key step comes next In the Add-On Builder?",
+      "answers": [
+        "Validate and package",
+        "Configure data collection.",
+        "Create alert actions.",
+        "Map to data models."
+      ],
+      "correct_answer": "Map to data models.",
+      "correct_index": 3
+    },
+    {
+      "question": "After data is ingested, which data management step is essential to ensure raw data can be accelerated by a Data Model and used by ES?",
+      "answers": [
+        "Applying Tags.",
+        "Normalization to Customer Standard.",
+        "Normalization to the Splunk Common Information Model.",
+        "Extracting Fields."
+      ],
+      "correct_answer": "Normalization to the Splunk Common Information Model.",
+      "correct_index": 2
+    }
+  ]
+}
