@@ -1,0 +1,294 @@
+{
+  "questions": [
+    {
+      "question": "Sophia manages data ingestion for her organization’s SIEM. The data science team wants to perform real-time analytics on security data and asks Sophia for a copy of all new endpoint telemetry from the current point forward. The SIEM currently collects 15TB of endpoint telemetry every day.Which of the following solutions can Sophia use to best help the data science team?",
+      "answers": [
+        "Export the last 12 months of telemetry data from the SIEM in OCSF.",
+        "Use a message bus to send data to both the SIEM and data science team.",
+        "Export the last 12 months of telemetry data from the SIEM in JSON format.",
+        "Configure the SIEM to export a CSV report of all new telemetry data every night."
+      ],
+      "correct_index": [
+        1
+      ],
+      "correct_answer": "Use a message bus to send data to both the SIEM and data science team."
+    },
+    {
+      "question": "To ensure leadership is aware of the security team’s performance, which measurements should be presented on a regular basis? (Choose all that apply.)",
+      "answers": [
+        "Patch compliance percentage",
+        "Mean time to contain",
+        "Number of emergency change requests",
+        "Mean time to respond"
+      ],
+      "correct_index": [
+        0,
+        1,
+        3
+      ],
+      "correct_answer": [
+        "Patch compliance percentage",
+        "Mean time to contain",
+        "Mean time to respond"
+      ]
+    },
+    {
+      "question": "Justin has just finished successfully importing data from the CMDB platform into the SIEM. While validating data, he discovers a host with a MAC address (35:33:33:20:76) that does not have the same OUI (03:83:71) as the rest of the deployed devices.Which of the following is the most likely explanation for this discrepancy?",
+      "answers": [
+        "CMDB contains data from personal devices managed under MDM",
+        "CMDB data was normalized during the SIEM import process",
+        "CMDB data was corrupted during the export process",
+        "CMDB contains data related to dynamic VPN pool addresses"
+      ],
+      "correct_index": [
+        0
+      ],
+      "correct_answer": "CMDB contains data from personal devices managed under MDM"
+    },
+    {
+      "question": "Which of the following are common criteria used for the evaluation of threat intelligence feeds? (Choose all that apply.)",
+      "answers": [
+        "TLP",
+        "Industry",
+        "Source",
+        "Severity"
+      ],
+      "correct_index": [
+        0,
+        1,
+        2,
+        3
+      ],
+      "correct_answer": [
+        "TLP",
+        "Industry",
+        "Source",
+        "Severity"
+      ]
+    },
+    {
+      "question": "Which MLTK command can be combined with tstats in an ES detection to apply a machine learning model to search results?",
+      "answers": [
+        "Summary",
+        "Fit",
+        "Cluster",
+        "Sample"
+      ],
+      "correct_index": [
+        1
+      ],
+      "correct_answer": "Fit"
+    },
+    {
+      "question": "An architect is planning for a net new SIEM deployment.Which of the following data sources will provide the most immediate security value?",
+      "answers": [
+        "Physical access control logs",
+        "Active Directory logs",
+        "CMDB logs",
+        "Security tool alerts"
+      ],
+      "correct_index": [
+        3
+      ],
+      "correct_answer": "Security tool alerts"
+    },
+    {
+      "question": "How can a threat intelligence team discover additional Indicators Of Compromise (IOCs) from threat actor payloads?",
+      "answers": [
+        "Submit the payload to Splunk Intelligence Management.",
+        "Submit the payload to Mission Control.",
+        "Submit the payload to Behavioral Analytics.",
+        "Submit the payload to Splunk Attack Analyzer."
+      ],
+      "correct_index": [
+        3
+      ],
+      "correct_answer": "Submit the payload to Splunk Attack Analyzer."
+    },
+    {
+      "question": "Which of the following is the most direct way to measure a detection engineering practice to understand what gaps may exist in security controls and program effectiveness?",
+      "answers": [
+        "Measure Mean Time to Detect (MTTD) threats.",
+        "Measure the number of true positive security alerts created per environment.",
+        "Measure security control coverage against industry frameworks and organizational risks.",
+        "Measure the number of detections created per quarter."
+      ],
+      "correct_index": [
+        2
+      ],
+      "correct_answer": "Measure security control coverage against industry frameworks and organizational risks."
+    },
+    {
+      "question": "Buttercup games has implemented over 100 detections in their SOC. These detections consist mostly of vendor provided signatures and field matching that have been tuned, with a few that have been custom built.What more advanced detection methods should they deploy?",
+      "answers": [
+        "Define breaches of static thresholds",
+        "Enrich with asset and identity information",
+        "Use an outlier based algorithm",
+        "Use automation to pull additional data"
+      ],
+      "correct_index": [
+        2
+      ],
+      "correct_answer": "Use an outlier based algorithm"
+    },
+    {
+      "question": "What strategies enable data-driven approaches to evaluating tool efficacy? (Choose all that apply.)",
+      "answers": [
+        "Clearly defined outcomes and success criteria",
+        "Relying on public testimonials and vendor marketing materials",
+        "Early identification of prioritized requirements and use cases",
+        "Continuous operational monitoring and metrics collection"
+      ],
+      "correct_index": [
+        0,
+        2,
+        3
+      ],
+      "correct_answer": [
+        "Clearly defined outcomes and success criteria",
+        "Early identification of prioritized requirements and use cases",
+        "Continuous operational monitoring and metrics collection"
+      ]
+    },
+    {
+      "question": "Emma is a security architect helping migrate her organization’s on-premises SIEM to a newer version of the same SIEM running in a cloud provider. The newer version includes enhanced capabilities for writing detection content. The detection engineering team has built hundreds of rules in the on-premises SIEM over the years.As Emma starts planning for the migration, what should she do about moving the detection rules to the new platform?",
+      "answers": [
+        "Export half of the rules from the SIEM and manually convert them.",
+        "Nothing, the newer version’s default detection content will cover the organization’s needs.",
+        "Export all of the rules from the SIEM in Sigma format and import them into the new platform.",
+        "Review which rules are still relevant to the organization’s threat models to prioritize for migration."
+      ],
+      "correct_index": [
+        3
+      ],
+      "correct_answer": "Review which rules are still relevant to the organization’s threat models to prioritize for migration."
+    },
+    {
+      "question": "What is a SBOM?",
+      "answers": [
+        "A comprehensive list of components, libraries, and dependencies",
+        "A comprehensive list of search heads, indexers, and forwarders",
+        "A comprehensive list of indicators, detections, and alerts",
+        "A comprehensive list of searches, macros, and reports"
+      ],
+      "correct_index": [
+        0
+      ],
+      "correct_answer": "A comprehensive list of components, libraries, and dependencies"
+    },
+    {
+      "question": "Bocklava, Inc. is looking to launch their Software as a Service in an environment that is accredited against a specific control framework (i.e. PCI, ISO).What is the most effective way to ensure the appropriate controls of this environment are properly funded and implemented?",
+      "answers": [
+        "Create a business case for the environment to meet all required controls.",
+        "Hire a red team assessment to identify gaps.",
+        "Align the cost of the controls to the revenue generated by the new environment.",
+        "Ensure all requirements are entered in the ticketing system."
+      ],
+      "correct_index": [
+        0
+      ],
+      "correct_answer": "Create a business case for the environment to meet all required controls."
+    },
+    {
+      "question": "Of the following options, which is the best approach to implementing an effective business continuity plan?",
+      "answers": [
+        "Develop the plan based on IT infrastructure.",
+        "Create a one-time plan.",
+        "Store data backups offsite.",
+        "Define recovery objectives and regularly test the plan."
+      ],
+      "correct_index": [
+        3
+      ],
+      "correct_answer": "Define recovery objectives and regularly test the plan."
+    },
+    {
+      "question": "An alert has generated for a malicious file tied to a previously unknown malware.In order to protect the integrity of the investigation, how can the response team automate collection of evidence?",
+      "answers": [
+        "Pull the file from the system and detonate in a sandbox.",
+        "Pull the file directly from the system and store in a vault.",
+        "Send the Indicators of Compromise to the law enforcement agency.",
+        "Quarantine and shut down the system."
+      ],
+      "correct_index": [
+        1
+      ],
+      "correct_answer": "Pull the file directly from the system and store in a vault."
+    },
+    {
+      "question": "A cybersecurity team is looking to leverage DevSecOps best practices. They want to test new security policies with a small subset of users while monitoring for unusual access patterns or failures.Which of the following techniques will support this? (Choose all that apply.)",
+      "answers": [
+        "Infrastructure-as-Code",
+        "Blue-Green Deployments",
+        "Canary Releases",
+        "Automated Rollbacks"
+      ],
+      "correct_index": [
+        2,
+        3
+      ],
+      "correct_answer": [
+        "Canary Releases",
+        "Automated Rollbacks"
+      ]
+    },
+    {
+      "question": "Carter is an architect at an organization drafting design and support documents for a net new SOAR deployment.What does Carter have to take into consideration? (Choose all that apply.)",
+      "answers": [
+        "SOAR deployment can connect to the required destinations.",
+        "Write a request for proposal.",
+        "The organization has an agreed upon RACI.",
+        "RBAC controls have been properly defined."
+      ],
+      "correct_index": [
+        0,
+        2,
+        3
+      ],
+      "correct_answer": [
+        "SOAR deployment can connect to the required destinations.",
+        "The organization has an agreed upon RACI.",
+        "RBAC controls have been properly defined."
+      ]
+    },
+    {
+      "question": "Brian is a security architect at an organization and wants to test the efficacy of the security controls currently being used.Which of the following is the best way this can be achieved?",
+      "answers": [
+        "Establish a Red vs Blue program",
+        "Establish a Red vs Purple program",
+        "Establish a Blue vs Blue program",
+        "Establish a Blue vs Purple program"
+      ],
+      "correct_index": [
+        1
+      ],
+      "correct_answer": "Establish a Red vs Purple program"
+    },
+    {
+      "question": "Which of the following best explains how quantifying the financial impact of a cybersecurity incident can help justify and secure additional budget for the cybersecurity team? (Choose all that apply.)",
+      "answers": [
+        "It demonstrates the potential cost savings by preventing incidents, making a strong business case for increased funding.",
+        "It indicates that only technical improvements matter, not financial considerations.",
+        "It shows that cybersecurity incidents are unavoidable, so additional budget is necessary.",
+        "It highlights that cybersecurity spending should be reduced to save costs."
+      ],
+      "correct_index": [
+        0
+      ],
+      "correct_answer": "It demonstrates the potential cost savings by preventing incidents, making a strong business case for increased funding."
+    },
+    {
+      "question": "How can an organization’s identity and access management (IAM) architecture enable security orchestration?",
+      "answers": [
+        "IAM system logs provide valuable alerts for security orchestration.",
+        "Allows normal users to bypass IAM controls for faster response to authentication and authorizations.",
+        "Provides granular permissions to automate disabling accounts, resetting passwords, or changing privileges.",
+        "Performs changes to IAM system settings to alter authentication methods."
+      ],
+      "correct_index": [
+        2
+      ],
+      "correct_answer": "Provides granular permissions to automate disabling accounts, resetting passwords, or changing privileges."
+    }
+  ]
+}
