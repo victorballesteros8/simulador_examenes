@@ -504,10 +504,6 @@ function renderExamList(filter=""){
           <div class="exam-badge">${escapeHtml(exam.manufacturer)}</div>
         </div>
 
-        <div class="exam-card-count">
-          ${exam.questionCount !== null ? `${exam.questionCount} preguntas` : "Preguntas"}
-        </div>
-
         <button class="primary exam-select" onclick="selectExam(${index})">
           Seleccionar examen →
         </button>
